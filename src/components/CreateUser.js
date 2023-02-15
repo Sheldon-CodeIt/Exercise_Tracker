@@ -1,15 +1,27 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import exerciseContext from "../context/exerciseContext";
 
 const CreateUser = () => {
-  const [username, setUsername] = useState("");
+
+  const context = useContext(exerciseContext);
+  const { addUser } = context;
+
+  const [name, setName] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
-  };
 
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
+    const user = {
+      name,
+    };
+
+    // axios
+    //   .post("http://localhost:3000/users/add", user)
+    //   .then((res) => console.log(res.data));
+    console.log("User Added!");
+
+    setName("");
   };
 
   return (
@@ -59,7 +71,7 @@ const CreateUser = () => {
     //   </div>
     // </div>
     <div className="flex justify-center my-52 items-center">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -72,6 +84,8 @@ const CreateUser = () => {
             id="name"
             type="text"
             placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="flex items-center justify-between">
@@ -80,6 +94,8 @@ const CreateUser = () => {
             data-mdb-ripple="true"
             data-mdb-ripple-color="light"
             class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={onSubmit}
+            
           >
             Add User
           </button>

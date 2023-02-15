@@ -8,7 +8,7 @@ const ExerciseList = () => {
   const { exercises } = context;
 
     return (
-        <div className="flex flex-col mx-14">
+        <div className="flex flex-col mx-32">
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
               <div className="overflow-hidden">
@@ -45,8 +45,6 @@ const ExerciseList = () => {
                     {exercises.map((item) => (
                       <ExerciseListItem exercise={item} key={item._id} />
                     ))}
-
-                    {/* <ExerciseListItem/> */}
                   </tbody>
                 </table>
               </div>

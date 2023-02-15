@@ -37,7 +37,7 @@ const Navbar = () => {
               Exercise Log
             </a>
           </Link>
-          <Link to="/createExercise">
+          <Link to="/create">
             <a href="#" className="mr-5 hover:text-black hover:shadow-sm">
               Create Exercise
             </a>
