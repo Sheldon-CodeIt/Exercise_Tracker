@@ -3,13 +3,10 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import exerciseContext from "../context/exerciseContext";
 
-
 const ExerciseListItem = (props) => {
-
   const { exercise } = props;
   const context = useContext(exerciseContext);
   const { deleteExercise, getExercises, exercises } = context;
-
 
   useEffect(() => {
     getExercises();
@@ -27,7 +24,7 @@ const ExerciseListItem = (props) => {
         {exercise.duration}
       </td>
       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-        {exercise.date.substring(0, 10)}
+        {exercise.date && exercise.date.toString().substring(0, 10)}
       </td>
       <td>
         <Link to={`/edit/${exercise._id}`}>edit</Link> |{" "}

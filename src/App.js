@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ExerciseState from "./context/exerciseState";
+import UserState from "./context/userState";
+
 import Navbar from "./components/Navbar";
 import Landing from "./components/Landing";
 import ExerciseList from "./components/ExerciseList";
@@ -10,6 +12,7 @@ import CreateUser from "./components/CreateUser";
 export default function App() {
   return (
     <ExerciseState>
+    <UserState>
       <Router>
         <div className="container">
           <Navbar />
@@ -22,6 +25,7 @@ export default function App() {
           </Routes>
         </div>
       </Router>
+    </UserState>
     </ExerciseState>
   );
 }
