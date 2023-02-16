@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import userContext from "../context/userContext";
 import { useNavigate } from "react-router-dom";
+import UserList from "./UserList";
 
 const CreateUser = () => {
   const navigate = useNavigate();
@@ -27,9 +28,9 @@ const CreateUser = () => {
   };
 
   return (
-    <div className="flex justify-center my-52 items-center">
+    <div className="flex mt-28 justify-center items-center">
       <form
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="mr-32 pt-6 pb-8 mb-4"
         onSubmit={onSubmit}
       >
         <div className="mb-4">
@@ -60,8 +61,12 @@ const CreateUser = () => {
           </button>
         </div>
       </form>
+      <UserList/>
     </div>
   );
 };
 
 export default CreateUser;
+
+
+

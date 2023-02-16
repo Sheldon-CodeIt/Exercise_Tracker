@@ -25,27 +25,6 @@ const CreateExercise = () => {
     getUsers();
   }, []);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const exercise = {
-  //     name,
-  //     description,
-  //     duration,
-  //     date,
-  //   };
-
-  //   // Api post request
-  //   addExercise( exercise.name, exercise.description, exercise.duration, exercise.date );
-
-  //   setname("");
-  //   setDescription("");
-  //   setDuration("");
-  //   setDate(new Date());
-
-  //   navigate('/exercises', { replace: true });
-
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

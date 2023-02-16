@@ -2,7 +2,6 @@ import UserContext from "./userContext";
 import { useState } from "react";
 
 const UserState = (props) => {
-
   const host = "http://localhost:3000";
 
   const usersInitial = [
@@ -33,28 +32,6 @@ const UserState = (props) => {
     }
   };
 
-  // const addUser = async (name) => {
-  //   const response = await fetch(`${host}/users/add`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(name),
-  //   });
-
-  //   const json = await response.json();
-  //   console.log(json)
-
-  //   const user = {
-  //     _id: "63e735cbf5d41f6cbc005866",
-  //     name: name,
-  //     createdAt: "2023-02-11T06:29:31.561Z",
-  //     updatedAt: "2023-02-11T06:29:31.561Z",
-  //     __v: 0,
-  //   };
-  //   setUsers(users.concat(user));
-  // };
-
   const addUser = async (name) => {
     const response = await fetch(`${host}/users/add`, {
       method: "POST",
@@ -63,10 +40,10 @@ const UserState = (props) => {
       },
       body: JSON.stringify({ name }),
     });
-  
+
     const json = await response.json();
-    console.log(json)
-  
+    console.log(json);
+
     const user = {
       _id: "63e735cbf5d41f6cbc005866",
       name: name,
@@ -77,7 +54,44 @@ const UserState = (props) => {
     setUsers(users.concat(user));
   };
 
+  // const deleteUser = async (id) => {
+  //   const response = await fetch(`${host}/users/${id}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
 
+  //   const json = await response.json();
+  //   console.log(json);
+  //   console.log("deleting the user with id" + id);
+  //   const newUsers = users.filter((user) => {
+  //     return user._id !== id;
+  //   });
+  //   setUsers(newUsers);
+  // };
+
+  const deleteUser = async (id) => {
+    try {
+      const response = await fetch(`${host}/users/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete user");
+      }
+
+      const deletedUser = await response.json();
+      console.log(deletedUser);
+
+      setUsers(users.filter((user) => user._id !== id));
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -85,7 +99,8 @@ const UserState = (props) => {
         users,
         setUsers,
         getUsers,
-        addUser
+        addUser,
+        deleteUser,
       }}
     >
       {props.children}
