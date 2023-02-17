@@ -54,22 +54,6 @@ const UserState = (props) => {
     setUsers(users.concat(user));
   };
 
-  // const deleteUser = async (id) => {
-  //   const response = await fetch(`${host}/users/${id}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-
-  //   const json = await response.json();
-  //   console.log(json);
-  //   console.log("deleting the user with id" + id);
-  //   const newUsers = users.filter((user) => {
-  //     return user._id !== id;
-  //   });
-  //   setUsers(newUsers);
-  // };
 
   const deleteUser = async (id) => {
     try {
