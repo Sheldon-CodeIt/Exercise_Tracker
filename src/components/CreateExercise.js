@@ -8,23 +8,24 @@ import { useNavigate } from "react-router-dom";
 const CreateExercise = () => {
   const navigate = useNavigate();
 
-  const [name, setname] = useState("");
-  const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState("");
-  const [date, setDate] = useState(new Date());
-
-  const userInput = useRef(null);
-
   const context = useContext(userContext);
   const { users, getUsers } = context;
 
   const econtext = useContext(exerciseContext);
   const { addExercise } = econtext;
 
+  const [name, setname] = useState(users.length > 0 ? users[0].name : "");
+  const [description, setDescription] = useState("");
+  const [duration, setDuration] = useState("");
+  const [date, setDate] = useState(new Date());
+
+  const userInput = useRef(null);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     getUsers();
   }, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +36,20 @@ const CreateExercise = () => {
       duration,
       date,
     };
+
+    if (
+      name.trim() === "" ||
+      description.trim() === "" ||
+      duration.trim() === ""
+    ) {
+      setErrorMessage("Please fill all fields");
+      return;
+    }
+
+    if (isNaN(parseInt(duration))) {
+      setErrorMessage("Duration should be a number");
+      return;
+    }
 
     try {
       await addExercise(
@@ -48,6 +63,7 @@ const CreateExercise = () => {
       setDescription("");
       setDuration("");
       setDate(new Date());
+      setErrorMessage("");
 
       navigate("/exercises", { replace: true });
     } catch (error) {
@@ -58,6 +74,11 @@ const CreateExercise = () => {
   return (
     <div className="mx-32">
       <h3 className="text-lg font-medium mb-4">Create New Exercise Log</h3>
+      {errorMessage && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {errorMessage}
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col">
           <label className="text-sm font-medium mb-1" for="name">
@@ -95,6 +116,7 @@ const CreateExercise = () => {
           </label>
           <input
             type="text"
+            required
             className="border border-gray-300 py-2 px-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
@@ -104,26 +126,20 @@ const CreateExercise = () => {
           <label className="text-sm font-medium mb-1" for="date">
             Date:
           </label>
-          <div>
-            <DatePicker
-              className="border border-gray-300 py-2 px-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              selected={date}
-              onChange={(date) => setDate(date)}
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-center">
-          <input
-            type="submit"
-            value="Create Exercise Log"
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            onClick={handleSubmit}
+          <DatePicker
+            selected={date}
+            onChange={(date) => setDate(date)}
+            className="border border-gray-300 py-2 px-3 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+        >
+          Create Exercise Log
+        </button>
       </form>
     </div>
   );
 };
-
 export default CreateExercise;

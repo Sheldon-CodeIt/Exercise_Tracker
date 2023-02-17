@@ -1,10 +1,13 @@
-import React from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { GiWeightLiftingUp } from 'react-icons/gi';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { GiWeightLiftingUp } from "react-icons/gi";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Navbar = () => {
   const navigate = useNavigate();
- 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const handleLogin = () => {
     navigate("/login");
   };
@@ -12,43 +15,76 @@ const Navbar = () => {
     navigate("/signup");
   };
 
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-  
   return (
-    <header className="text-gray-600 mt-5 body-font">
-      <div
-        className="container mx-auto flex flex-wrap pl-3 pr-3 flex-col md:flex-row items-center"
-        bis_skin_checked="1"
-      >
+    <header className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white body-font">
+      <div className="container mx-auto px-4 py-2 md:py-4 flex items-center justify-between">
         <Link to="/">
-          <a className="flex title-font font-medium items-center text-gray-900 mx-2 mb-4 md:mb-0">
-            {/* <img
-              className="w-12 h-12 text-white "
-              src="https://www.tailorbrands.com/wp-content/uploads/2019/04/Artboard-5-copy-9xxxhdpi-1020x1024.png"
-              alt="Monitoring"
-            /> */}
-            <GiWeightLiftingUp className="font-bold text-3xl text-cyan-500"/>
-            <span className="ml-3 text-xl">Exer-Tracker</span>
-          </a>
+          <div className="flex items-center">
+            <GiWeightLiftingUp className="text-3xl mr-2" />
+            <span className="text-xl font-bold">Exer-Tracker</span>
+          </div>
         </Link>
-        <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+        <div className="flex items-center md:hidden">
+          {isMenuOpen ? (
+            <button
+              onClick={handleMenuClick}
+              className="text-white focus:outline-none"
+            >
+              <AiOutlineClose className="text-2xl" />
+            </button>
+          ) : (
+            <button
+              onClick={handleMenuClick}
+              className="text-white focus:outline-none"
+            >
+              <HiMenuAlt3 className="text-2xl" />
+            </button>
+          )}
+        </div>
+        <nav className="hidden md:flex md:flex-row md:items-center md:justify-end">
           <Link to="/exercises">
-            <a href="#" className="mr-5 hover:text-black hover:shadow-sm">
+            <a className="mx-4 hover:text-gray-200">Exercise Log</a>
+          </Link>
+          <Link to="/create">
+            <a className="mx-4 hover:text-gray-200">Create Exercise</a>
+          </Link>
+          <Link to="/user">
+            <a className="mx-4 hover:text-gray-200">Create User</a>
+          </Link>
+        </nav>
+      </div>
+      {isMenuOpen && (
+        <nav className="md:hidden bg-gradient-to-r from-purple-500 to-indigo-500 absolute w-full left-0 px-4 pt-4 pb-8">
+          <Link to="/exercises">
+            <a
+              onClick={handleMenuClick}
+              className="mx-4 hover:text-gray-200 font-bold text-gray-200 border-b-2 border-white pb-2"
+            >
               Exercise Log
             </a>
           </Link>
           <Link to="/create">
-            <a href="#" className="mr-5 hover:text-black hover:shadow-sm">
+            <a
+              onClick={handleMenuClick}
+              className="mx-4 hover:text-gray-200 font-bold text-gray-200 border-b-2 border-white pb-2"
+            >
               Create Exercise
             </a>
           </Link>
           <Link to="/user">
-            <a href="#" className="mr-5 hover:text-black hover:shadow-sm">
+            <a
+              onClick={handleMenuClick}
+              className="mx-4 hover:text-gray-200 font-bold text-gray-200 border-b-2 border-white pb-2"
+            >
               Create User
             </a>
           </Link>
         </nav>
-      </div>
+      )}
     </header>
   );
 };

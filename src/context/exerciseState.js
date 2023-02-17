@@ -35,6 +35,57 @@ const ExerciseState = (props) => {
     }
   };
 
+  // const addExercise = async (name, description, duration, date) => {
+  //   const response = await fetch(`${host}/exercises/add`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ name, description, duration, date }),
+  //   });
+
+  //   const json = await response.json();
+
+  //   const exercise = {
+  //     _id: "63e735cbf5d41f6cbc005866",
+  //     name: name,
+  //     description: description,
+  //     duration: duration,
+  //     date: date,
+  //     createdAt: "2023-02-11T06:29:31.561Z",
+  //     updatedAt: "2023-02-11T06:29:31.561Z",
+  //     __v: 0,
+  //   };
+  //   setExercises(exercises.concat(exercise));
+  // };
+
+  // const addExercise = async (name, description, duration, date) => {
+  //   const response = await fetch(`${host}/exercises/add`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ name, description, duration, date }),
+  //   });
+
+  //   const json = await response.json();
+
+  //   const exercise = {
+  //     _id: "63e735cbf5d41f6cbc005866",
+  //     name: name,
+  //     description: description,
+  //     duration: duration,
+  //     date: date,
+  //     createdAt: "2023-02-11T06:29:31.561Z",
+  //     updatedAt: "2023-02-11T06:29:31.561Z",
+  //     __v: 0,
+  //   };
+
+  //   console.log("exercises before:", exercises);
+  //   setExercises(exercises.concat(exercise));
+  //   console.log("exercises after:", exercises);
+  // };
+
   const addExercise = async (name, description, duration, date) => {
     const response = await fetch(`${host}/exercises/add`, {
       method: "POST",
@@ -44,19 +95,23 @@ const ExerciseState = (props) => {
       body: JSON.stringify({ name, description, duration, date }),
     });
 
-    const json = await response.json();
-
-    const exercise = {
-      _id: "63e735cbf5d41f6cbc005866",
-      name: name,
-      description: description,
-      duration: duration,
-      date: date,
-      createdAt: "2023-02-11T06:29:31.561Z",
-      updatedAt: "2023-02-11T06:29:31.561Z",
-      __v: 0,
-    };
-    setExercises(exercises.concat(exercise));
+    if (response.ok) {
+      const json = await response.json();
+      console.log(json);
+      const exercise = {
+        _id: json._id,
+        name: name,
+        description: description,
+        duration: duration,
+        date: date,
+        createdAt: json.createdAt,
+        updatedAt: json.updatedAt,
+        __v: json.__v,
+      };
+      setExercises(exercises.concat(exercise));
+    } else {
+      console.error("Failed to add exercise");
+    }
   };
 
   const deleteExercise = async (id) => {
@@ -107,7 +162,7 @@ const ExerciseState = (props) => {
         getExercises,
         deleteExercise,
         editExercises,
-        addExercise
+        addExercise,
       }}
     >
       {props.children}

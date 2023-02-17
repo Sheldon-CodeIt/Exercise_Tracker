@@ -8,10 +8,7 @@ const UserList = () => {
 
   return (
     <div>
-      <div
-        className="overflow-y-scroll sm:-mx-6 lg:-mx-8"
-        style={{ height: "400px" }}
-      >
+      <div className="overflow-y-scroll sm:-mx-6 lg:-mx-8" style={{ height: "50vh" }}>
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden">
             <table className="min-w-full">
@@ -19,16 +16,27 @@ const UserList = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    className="text-xs sm:text-sm font-medium text-gray-900 px-4 sm:px-6 py-3 text-left"
                   >
-                    Name
+                    Users
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {users.map((item) => (
-                  <UserListitem user={item} key={item._id} />
-                ))}
+                {users.length === 0 ? (
+                  <tr>
+                    <td
+                      className="text-gray-400 text-center py-4"
+                      colSpan="1"
+                    >
+                      No data available
+                    </td>
+                  </tr>
+                ) : (
+                  users.map((item) => (
+                    <UserListitem user={item} key={item._id} />
+                  ))
+                )}
               </tbody>
             </table>
           </div>
