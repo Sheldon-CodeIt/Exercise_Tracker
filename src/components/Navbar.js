@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white body-font">
+    <header className="fixed top-0 left-0 w-full h-16 bg-gradient-to-r from-purple-500 to-indigo-500 z-50 text-white body-font">
       <div className="container mx-auto px-4 py-2 md:py-4 flex items-center justify-between">
         <Link to="/">
           <div className="flex items-center">
@@ -45,7 +45,7 @@ const Navbar = () => {
             </button>
           )}
         </div>
-        <nav className="hidden md:flex md:flex-row md:items-center md:justify-end">
+        <nav className="hidden md:flex md:flex-row  md:items-center md:justify-end">
           <Link to="/exercises">
             <a className="mx-4 hover:text-gray-200">Exercise Log</a>
           </Link>
@@ -58,7 +58,7 @@ const Navbar = () => {
         </nav>
       </div>
       {isMenuOpen && (
-        <nav className="md:hidden bg-gradient-to-r from-purple-500 to-indigo-500 absolute w-full left-0 px-4 pt-4 pb-8">
+        <nav className="md:hidden bg-gradient-to-r from-purple-500 to-indigo-500 sticky top w-full left-0 px-4 pt-4 pb-8">
           <Link to="/exercises">
             <a
               onClick={handleMenuClick}

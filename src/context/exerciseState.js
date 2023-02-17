@@ -35,57 +35,6 @@ const ExerciseState = (props) => {
     }
   };
 
-  // const addExercise = async (name, description, duration, date) => {
-  //   const response = await fetch(`${host}/exercises/add`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ name, description, duration, date }),
-  //   });
-
-  //   const json = await response.json();
-
-  //   const exercise = {
-  //     _id: "63e735cbf5d41f6cbc005866",
-  //     name: name,
-  //     description: description,
-  //     duration: duration,
-  //     date: date,
-  //     createdAt: "2023-02-11T06:29:31.561Z",
-  //     updatedAt: "2023-02-11T06:29:31.561Z",
-  //     __v: 0,
-  //   };
-  //   setExercises(exercises.concat(exercise));
-  // };
-
-  // const addExercise = async (name, description, duration, date) => {
-  //   const response = await fetch(`${host}/exercises/add`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ name, description, duration, date }),
-  //   });
-
-  //   const json = await response.json();
-
-  //   const exercise = {
-  //     _id: "63e735cbf5d41f6cbc005866",
-  //     name: name,
-  //     description: description,
-  //     duration: duration,
-  //     date: date,
-  //     createdAt: "2023-02-11T06:29:31.561Z",
-  //     updatedAt: "2023-02-11T06:29:31.561Z",
-  //     __v: 0,
-  //   };
-
-  //   console.log("exercises before:", exercises);
-  //   setExercises(exercises.concat(exercise));
-  //   console.log("exercises after:", exercises);
-  // };
-
   const addExercise = async (name, description, duration, date) => {
     const response = await fetch(`${host}/exercises/add`, {
       method: "POST",
@@ -131,6 +80,29 @@ const ExerciseState = (props) => {
     setExercises(newExercises);
   };
 
+  // const editExercises = async (id, name, description, duration, date) => {
+  //   const response = await fetch(`${host}/exercises/edit/${id}`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ name, description, duration, date }),
+  //   });
+
+  //   const json = response.json();
+
+  //   // logic to edit in client
+  //   for (let index = 0; index < exercises.length; index++) {
+  //     const element = exercises[index];
+  //     if (element._id === id) {
+  //       element.name = name;
+  //       element.description = description;
+  //       element.duration = duration;
+  //       element.date = date;
+  //     }
+  //   }
+  // };
+
   const editExercises = async (id, name, description, duration, date) => {
     const response = await fetch(`${host}/exercises/edit/${id}`, {
       method: "POST",
@@ -140,18 +112,22 @@ const ExerciseState = (props) => {
       body: JSON.stringify({ name, description, duration, date }),
     });
 
-    const json = response.json();
+    const json = await response.json();
 
     // logic to edit in client
-    for (let index = 0; index < exercises.length; index++) {
-      const element = exercises[index];
-      if (element._id === id) {
-        element.name = name;
-        element.description = description;
-        element.duration = duration;
-        element.date = date;
+    const updatedExercises = exercises.slice().map((exercise) => {
+      if (exercise._id === id) {
+        return {
+          ...exercise,
+          name,
+          description,
+          duration,
+          date,
+        };
       }
-    }
+      return exercise;
+    });
+    setExercises(updatedExercises);
   };
 
   return (

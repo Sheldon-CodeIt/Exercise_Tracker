@@ -2,7 +2,7 @@ import React from 'react'
 
 const Landing = () => {
   return (
-    <div>Landing</div>
+    <div className='pt-16'>Landing</div>
   )
 }
 

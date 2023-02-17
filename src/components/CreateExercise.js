@@ -72,7 +72,7 @@ const CreateExercise = () => {
   };
 
   return (
-    <div className="mx-32">
+    <div className="mx-32 pt-16">
       <h3 className="text-lg font-medium mb-4">Create New Exercise Log</h3>
       {errorMessage && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
