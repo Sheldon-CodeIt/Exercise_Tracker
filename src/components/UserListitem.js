@@ -11,7 +11,7 @@ const UserListitem = (props) => {
 
   useEffect(() => {
     getUsers();
-  }, [users]);
+  }, [users, getUsers]);
 
   return (
     <tr className="bg-white border-b">

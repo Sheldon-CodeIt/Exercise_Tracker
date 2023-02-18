@@ -39,6 +39,12 @@ const ExerciseList = () => {
                     >
                       Date
                     </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-indigo-800 px-6 py-4 text-left"
+                    >
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 {exercises.length > 0 ? (

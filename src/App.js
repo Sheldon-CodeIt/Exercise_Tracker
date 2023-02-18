@@ -8,6 +8,7 @@ import Landing from "./components/Landing";
 import ExerciseList from "./components/ExerciseList";
 import CreateExercise from "./components/CreateExercise";
 import CreateUser from "./components/CreateUser";
+import EditExercise from "./components/EditExercise";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/exercises" element={<ExerciseList />} />
+            <Route path="/edit/:id" element={<EditExercise/>} />
             <Route path="/create" element={<CreateExercise/>} />
             <Route path="/user" element={<CreateUser />} />
           </Routes>

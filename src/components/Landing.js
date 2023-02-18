@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex fixed inset-0 flex-col items-center justify-center h-screen bg-gray-100">
       <div className="max-w-4xl p-6 bg-white shadow-lg rounded-lg">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">About Exer-Tracker</h1>
         <p className="text-lg text-gray-700 mb-8">

@@ -39,8 +39,8 @@ const ExerciseListItem = (props) => {
       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
         {exercise.date && exercise.date.toString().substring(0, 10)}
       </td>
-      <td>
-        <Link to={`/edit/${exercise._id}`}>edit</Link> |{" "}
+      <td className="px-6 py-4 whitespace-nowrap">
+        <Link className="hover:underline" to={`/edit/${exercise._id}`}>edit</Link> |{" "}
         <button
           className="text-red-600 hover:text-red-700 transition duration-300 ease-in-out mb-4"
           onClick={handleDeleteClick}
