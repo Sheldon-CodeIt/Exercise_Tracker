@@ -80,40 +80,18 @@ const ExerciseState = (props) => {
     setExercises(newExercises);
   };
 
-  // const editExercises = async (id, name, description, duration, date) => {
-  //   const response = await fetch(`${host}/exercises/edit/${id}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ name, description, duration, date }),
-  //   });
-
-  //   const json = response.json();
-
-  //   // logic to edit in client
-  //   for (let index = 0; index < exercises.length; index++) {
-  //     const element = exercises[index];
-  //     if (element._id === id) {
-  //       element.name = name;
-  //       element.description = description;
-  //       element.duration = duration;
-  //       element.date = date;
-  //     }
-  //   }
-  // };
-
-  const editExercises = async (id, name, description, duration, date) => {
-    const response = await fetch(`${host}/exercises/edit/${id}`, {
+  const updateExercise = async (id, name, description, duration, date) => {
+    const response = await fetch(`${host}/exercises/update/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name, description, duration, date }),
     });
-
+  
     const json = await response.json();
-
+    console.log(json);
+  
     // logic to edit in client
     const updatedExercises = exercises.slice().map((exercise) => {
       if (exercise._id === id) {
@@ -127,7 +105,7 @@ const ExerciseState = (props) => {
       }
       return exercise;
     });
-    setExercises(updatedExercises);
+    setExercises(updatedExercises);  
   };
 
   return (
@@ -137,7 +115,7 @@ const ExerciseState = (props) => {
         setExercises,
         getExercises,
         deleteExercise,
-        editExercises,
+        updateExercise,
         addExercise,
       }}
     >

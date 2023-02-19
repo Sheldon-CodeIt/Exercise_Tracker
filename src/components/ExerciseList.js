@@ -6,6 +6,10 @@ const ExerciseList = () => {
   const context = useContext(exerciseContext);
   const { exercises } = context;
 
+  const updateExercise = (currentExercise) =>{
+      console.log(currentExercise)
+  } 
+
   return (
     <div className="exercise-list-container">
       <div className="flex pt-16 flex-col mx-32">
@@ -50,7 +54,7 @@ const ExerciseList = () => {
                 {exercises.length > 0 ? (
                   <tbody>
                     {exercises.map((item) => (
-                      <ExerciseListItem exercise={item} key={item._id} />
+                      <ExerciseListItem exercise={item} updateExercise={updateExercise} key={item._id} />
                     ))}
                   </tbody>
                 ) : (
